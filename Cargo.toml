@@ -20,6 +20,9 @@ categories = [
 ]
 include = ["/LICENSES/", "/src/"]
 
+[lints.rust]
+warnings = "deny"
+
 [package.metadata.docs.rs]
 default-target = "x86_64-unknown-linux-gnu"
 targets = [
