@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: 2025 Dhruvin Gandhi <contact@dhru.vin>
+#
+# SPDX-License-Identifier: MIT OR Apache-2.0
+
+on:
+  pull_request:
+    branches:
+      - main
+permissions:
+  contents: read
+jobs:
+  reuse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v5
+      - name: reuse
+        uses: fsfe/reuse-action@v6
+  test:
+    strategy:
+      matrix:
+        runner:
+          [ubuntu-24.04-arm, ubuntu-latest, windows-11-arm, windows-latest]
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v5
+      - name: cache
+        uses: Swatinem/rust-cache@v2
+      - name: test
+        run: cargo test
+        env:
+          CARGO_TERM_COLOR: always
