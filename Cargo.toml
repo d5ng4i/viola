@@ -31,3 +31,9 @@ targets = [
     "x86_64-pc-windows-msvc",
     "x86_64-unknown-linux-gnu"
 ]
+
+[target.'cfg(target_os = "linux")'.dependencies]
+rustix = { version = "1.1.2", default-features = false, features = ["std", "io_uring"] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+windows = { version = "0.62.2", default-features = false, features = ["std", "Win32_Storage_FileSystem"] }
